@@ -18,7 +18,32 @@
             <div class="upper-data">
                 <img src="#" id="chess-profile-img">
                 <span id="title"></span>
-                <span id="player-name"></span>
+
+                <div>
+                    <a id="player-name" href="#"></a>
+                    <div class="league-div">
+                        league: <span id="league"></span>
+                    </div>
+                </div>
+                <img src="./images/premium.png" id="premium">
+            </div>
+            <span class="ratings-span">ratings</span>
+            <span class="games-span">Games</span>
+             <div class="ratings-div">
+                <div>
+                    <img src="./images/rapid.png">
+                </div>
+
+                <div>
+                    <img src="./images/blitz.png">
+                    <span class="rating" id="blitz-rating"></span>
+                    <span class="games" id="blitz-games"></span>
+                </div>
+                <div>
+                    <img src="./images/bullet.png">
+                    <span class="rating" id="bullet-rating"></span>
+                    <span class="games" id="bullet-games"></span>
+                </div>
             </div>
         </div>
 
@@ -36,6 +61,9 @@
         let chessProfileImg = document.getElementById("chess-profile-img");
         let playerName = document.getElementById("player-name");
         let playerTitle = document.getElementById("title");
+        let league = document.getElementById("league");
+        let premium = document.getElementById("premium");
+
 
         submitButton.addEventListener("click", function(){
             if(inputField.value === ""){
@@ -51,19 +79,55 @@
             .then(data =>
              { console.log(data);
             chessProfileImg.src = data.avatar;
-            playerName.innerHTML = data.name;
+            playerName.innerHTML = data.username;
+            playerName.href = data.url;
+            league.innerHTML = data.league;
+
             if(data.title){
                 playerTitle.style.display = "block";
                 playerTitle.innerHTML = data.title;
             }else{
                 playerTitle.style.display = "none";
             }
+
+            if(data.status === "premium"){
+                premium.style.display = "block";
+            }else if(data.status !== "premium"){
+                premium.style.display = "none";
+            }
             })
             .catch(err => console.error(err))
             }
+        })
 
 
-        });
+
+         let RapidRatingSpan = document.getElementById("rapid-rating");
+        let blitzRatingSpan = document.getElementById("blitz-rating");
+        let bulletRatingSpan = document.getElementById("bullet-rating");
+
+        let rapidGames = document.getElementById("rapid-games");
+        let blitzGames = document.getElementById("blitz-games");
+        let bulletGames = document.getElementById("bullet-games");
+
+        fetch("https://api.chess.com/pub/player/AbdEl_Rahman_Aref/stats")
+        .then(response => response.json())
+        .then(
+            data => {
+                console.log(data);
+                RapidRatingSpan.innerHTML = data.chess_rapid.last.rating;
+                blitzRatingSpan.innerHTML = data.chess_blitz.last.rating;
+                bulletRatingSpan.innerHTML = data.chess_bullet.last.rating;
+
+                let rapidGamesCount = (data.chess_rapid.record.win) + (data.chess_rapid.record.draw) + (data.chess_rapid.record.loss)
+                let blitzGamesCount = (data.chess_blitz.record.win) + (data.chess_blitz.record.draw) + (data.chess_blitz.record.loss)
+                let bulletGamesCount = (data.chess_bullet.record.win) + (data.chess_bullet.record.draw) + (data.chess_bullet.record.loss)
+                rapidGames.innerHTML = rapidGamesCount;
+                blitzGames.innerHTML = blitzGamesCount;
+                bulletGames.innerHTML = bulletGamesCount;
+            })
+        .catch(err => console.error(err))
+
     </script>
 </body>
 </html>
