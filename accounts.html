@@ -31,17 +31,14 @@
                 <div>
                     <img src="./images/rapid.png">
                     <span class="rating" id="rapid-rating"></span>
-                    <span class="games" id="rapid-games"></span>
                 </div>
                 <div>
                     <img src="./images/blitz.png">
                     <span class="rating" id="blitz-rating"></span>
-                    <span class="games" id="blitz-games"></span>
                 </div>
                 <div>
                     <img src="./images/bullet.png">
                     <span class="rating" id="bullet-rating"></span>
-                    <span class="games" id="bullet-games"></span>
                 </div>
             </div>
         </div>
@@ -105,11 +102,8 @@
         let blitzRatingSpan = document.getElementById("blitz-rating");
         let bulletRatingSpan = document.getElementById("bullet-rating");
 
-        let rapidGames = document.getElementById("rapid-games");
-        let blitzGames = document.getElementById("blitz-games");
-        let bulletGames = document.getElementById("bullet-games");
 
-        fetch("https://api.chess.com/pub/player/AbdEl_Rahman_Aref/stats")
+        fetch(`https://api.chess.com/pub/player/${inputField.value}/stats`)
         .then(response => response.json())
         .then(
             data => {
@@ -117,13 +111,6 @@
                 RapidRatingSpan.innerHTML = data.chess_rapid.last.rating;
                 blitzRatingSpan.innerHTML = data.chess_blitz.last.rating;
                 bulletRatingSpan.innerHTML = data.chess_bullet.last.rating;
-
-                let rapidGamesCount = (data.chess_rapid.record.win) + (data.chess_rapid.record.draw) + (data.chess_rapid.record.loss)
-                let blitzGamesCount = (data.chess_blitz.record.win) + (data.chess_blitz.record.draw) + (data.chess_blitz.record.loss)
-                let bulletGamesCount = (data.chess_bullet.record.win) + (data.chess_bullet.record.draw) + (data.chess_bullet.record.loss)
-                rapidGames.innerHTML = rapidGamesCount;
-                blitzGames.innerHTML = blitzGamesCount;
-                bulletGames.innerHTML = bulletGamesCount;
             })
         .catch(err => console.error(err))
 
