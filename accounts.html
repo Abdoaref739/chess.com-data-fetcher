@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts fetcher</title>
+    <link rel="stylesheet" href="accounts.css">
+    <link rel="icon" type="image/png" href="/images/icons8-chess-com-48.png">
+</head>
+<body>
+    <h1>get the data of any player (literally anyone)</h1>
+    <script>
+        fetch("https://api.chess.com/pub/player/AbdEl_Rahman_Aref")
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(err => console.error(err))
+    </script>
+</body>
+</html>

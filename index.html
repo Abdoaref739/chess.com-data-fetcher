@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chess.com profile fetcher</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="/images/icons8-chess-com-48.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <header class="header">
+        <img src="./images/logo.png" class="logo">
+        <h1>|   Accounts Fetcher</h1>
+    </header>
+
+    <div class="choices-box">
+        <div class="section">
+            <img src="./images/about.png">
+            <span>about this project</span>
+        </div>
+
+        <div class="section accounts-section">
+            <img src="./images/accounts.png">
+            <span>check accounts</span>
+        </div>
+
+        <div class="section features-section" disabled>
+            <img src="./images/features.png">
+            <span>more features</span>
+        </div>
+    </div>
+
+    <div class="dev-chess-account">
+        <img src="./images/arrow.png" class="arrow">
+        <span>The real developer</span>
+        <img id="dev-chess-image">
+        <div>
+            <div class="name-div">
+                <h1 id="dev-chess-name"></h1>
+                <img src="./images/egypt.png">
+            </div>
+            <div class="ratings-div">
+                <div>
+                    <img src="./images/rapid.png">
+                    <span class="rating" id="rapid-rating"></span>
+                </div>
+                <div>
+                    <img src="./images/blitz.png">
+                    <span class="rating" id="blitz-rating"></span>
+                </div>
+                <div>
+                    <img src="./images/bullet.png">
+                    <span class="rating" id="bullet-rating"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alert">
+        <Span>coming very soon!! ;></Span>
+        <i class="fa-solid fa-x" id="close-icon"></i>
+    </div>
+
+
+
+
+    <footer>Made with love by @Aref 2026 &copy;copyright All Rights Reserved</footer>
+    <script>
+        let accountSection = document.querySelector(".accounts-section");
+        let devChessImg = document.getElementById("dev-chess-image");
+        let devChessName = document.getElementById("dev-chess-name");
+        let RapidRatingSpan = document.getElementById("rapid-rating");
+        let blitzRatingSpan = document.getElementById("blitz-rating");
+        let bulletRatingSpan = document.getElementById("bullet-rating");
+
+        accountSection.addEventListener("click", function(){
+            window.location.href = "./accounts.html";
+        })
+
+
+        fetch("https://api.chess.com/pub/player/AbdEl_Rahman_Aref")
+        .then(response => response.json())
+        .then(
+            data => {
+                console.log(data);
+                devChessImg.src = data.avatar;
+                devChessName.innerHTML = data.name;
+            })
+        .catch(err => console.error(err))
+
+
+        fetch("https://api.chess.com/pub/player/AbdEl_Rahman_Aref/stats")
+        .then(response => response.json())
+        .then(
+            data => {
+                console.log(data);
+                RapidRatingSpan.innerHTML = data.chess_rapid.last.rating;
+                blitzRatingSpan.innerHTML = data.chess_blitz.last.rating;
+                bulletRatingSpan.innerHTML = data.chess_bullet.last.rating;
+            })
+        .catch(err => console.error(err))
+
+        let devChessAccount = document.querySelector(".dev-chess-account");
+        devChessAccount.addEventListener("click", function(){
+            window.location.href = "https://www.chess.com/member/abdel_rahman_aref";
+        })
+
+
+        let featuresSection = document.querySelector(".features-section");
+        let alertMessage = document.getElementById("alert");
+        featuresSection.addEventListener("click", function(){
+            alertMessage.style.display = "flex";
+        })
+        let closeIcon = document.getElementById("close-icon");
+        closeIcon.addEventListener("click", function(){
+            alertMessage.style.display = "none";
+        })
+        
+    </script>
+</body>
+</html>
