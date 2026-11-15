@@ -8,12 +8,49 @@
     <link rel="icon" type="image/png" href="/images/icons8-chess-com-48.png">
 </head>
 <body>
-    <h1>get the data of any player (literally anyone)</h1>
+    <h1 class="accounts-title">get the data of any player (literally anyone)</h1>
+    <div class="input-section">
+        <input type="text" id="input-field" placeholder="Enter the account's name here!">
+        <button id="submit-btn">send!</button>
+    </div>
+    <div class="data-section">
+        <div id="data">
+            <img src="#" id="chess-profile-img">
+        </div>
+
+        <div id="no-data">
+            <img src="./images/data-logo.png">
+            <span>No fetched data yet!</span>
+        </div>
+    </div>
     <script>
-        fetch("https://api.chess.com/pub/player/AbdEl_Rahman_Aref")
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(err => console.error(err))
+        let inputField = document.getElementById("input-field");
+        let submitButton = document.getElementById("submit-btn");
+        let dataDiv = document.getElementById("data");
+        let noDataDiv = document.getElementById("no-data");
+
+        let chessProfileImg = document.getElementById("chess-profile-img");
+
+        submitButton.addEventListener("click", function(){
+            if(inputField.value === ""){
+                noDataDiv.style.display = "flex";
+                dataDiv.style.display = "none";
+
+            }else if(inputField.value !== ""){
+
+            noDataDiv.style.display = "none";
+            dataDiv.style.display = "flex";
+            fetch(`https://api.chess.com/pub/player/${inputField.value}`)
+            .then(response => response.json())
+            .then(data =>
+             { console.log(data);
+            chessProfileImg.src = data.avatar;
+            })
+            .catch(err => console.error(err))
+            }
+
+
+        });
     </script>
 </body>
 </html>
