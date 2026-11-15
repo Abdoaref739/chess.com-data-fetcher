@@ -25,9 +25,13 @@
             <span>check accounts</span>
         </div>
 
-        <div class="section features-section" disabled>
+        <div class="section features-section">
             <img src="./images/features.png">
             <span>more features</span>
+        </div>
+        <div class="section leaderboard-section">
+            <img src="./images/leaderboard.png">
+            <span>Leaderboard</span>
         </div>
     </div>
 
@@ -117,6 +121,11 @@
             alertMessage.style.display = "none";
         })
         
+
+        let leaderboardSection = document.querySelector(".leaderboard-section");
+        leaderboardSection.addEventListener("click", function(){
+            location.href = "./leaderboard.html";
+        })
     </script>
 </body>
 </html>

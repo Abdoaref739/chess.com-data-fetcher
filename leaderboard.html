@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chess.com leaderboard</title>
+    <link rel="stylesheet" href="leaderboard.css">
+</head>
+<body>
+    <h1>Leaderboard</h1>
+    
+    <div class="leaderboard" id="rapid-leaderboard">
+    </div>
+    <script>
+        let rapidLeaderboard = document.getElementById("rapid-leaderboard");
+        
+
+        fetch("https://api.chess.com/pub/leaderboards")
+        .then(response => response.json())
+        .then(
+            data => {
+                console.log(data)
+                    for(i = 0; i < (data.live_rapid).length; i++){
+                        let box = document.createElement("div");
+                        let rank = document.createElement("span");
+                        let image = document.createElement("img");
+                        let name = document.createElement("span");
+                        let score = document.createElement("span");
+
+
+                        box.appendChild(rank);
+                        box.appendChild(image);
+                        box.appendChild(name);
+                        box.appendChild(score);
+                        rapidLeaderboard.appendChild(box);
+
+
+                        box.classList.add("box");
+                        rank.classList.add("rank");
+                        image.classList.add("img");
+                        name.classList.add("span");
+                        score.classList.add("score");
+
+
+                        rank.innerHTML = data.live_rapid[i].rank;
+                        image.src = data.live_rapid[i].avatar;
+                        name.innerHTML = data.live_rapid[i].username;
+                        score.innerHTML = data.live_rapid[i].score;
+                        
+                    }
+                })
+        .catch(err => console.error(err))
+    </script>
+</body>
+</html>
