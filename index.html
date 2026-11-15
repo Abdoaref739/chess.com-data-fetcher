@@ -15,7 +15,7 @@
     </header>
 
     <div class="choices-box">
-        <div class="section">
+        <div class="section about-section">
             <img src="./images/about.png">
             <span>about this project</span>
         </div>
@@ -125,6 +125,10 @@
         let leaderboardSection = document.querySelector(".leaderboard-section");
         leaderboardSection.addEventListener("click", function(){
             location.href = "./leaderboard.html";
+        })
+        let aboutSection = document.getElementById("about-section");
+        aboutSection.addEventListener("click", function(){
+            location.href = "./about.html";
         })
     </script>
 </body>
