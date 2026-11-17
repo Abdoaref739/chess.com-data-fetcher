@@ -94,10 +94,11 @@
             })
             .catch(err => console.error(err))
             }
-        })
 
 
 
+
+            
          let RapidRatingSpan = document.getElementById("rapid-rating");
         let blitzRatingSpan = document.getElementById("blitz-rating");
         let bulletRatingSpan = document.getElementById("bullet-rating");
@@ -111,8 +112,17 @@
                 RapidRatingSpan.innerHTML = data.chess_rapid.last.rating;
                 blitzRatingSpan.innerHTML = data.chess_blitz.last.rating;
                 bulletRatingSpan.innerHTML = data.chess_bullet.last.rating;
+                console.log(inputField.value)
             })
         .catch(err => console.error(err))
+
+
+
+
+
+        })
+
+
 
     </script>
 </body>
